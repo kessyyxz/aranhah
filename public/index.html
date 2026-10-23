@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscrição - Homem-Aranha</title>
+    <link rel="stylesheet" href="styles.css">
+    l
+</head>
+<body style="background: url('177780-spider_man-chroma_key-miles_morales-superhero-comics-1920x1080.jpg') no-repeat center center fixed; background-size: cover;">
+
+    <main class="spider-container">
+        <header class="spider-header">
+            <h1>Teia de Contatos</h1>
+            <h2>Deixe seus dados com o amigão da vizinhança!</h2>
+        </header>
+
+        <form class="spider-form">
+            <div class="input-group">
+                <label for="nome">Nome do Herói/Vilão:</label>
+                <input type="text" id="btnUsuan 12rio" name="nome" placeholder="Digite seu nome" required>
+            </div>
+
+            <div class="input-group">
+                <label for="email">E-mail de Contato:</label>
+                <input type="email" id="btnEmail" name="email" placeholder="exemplo@spider.com" required>
+            </div>
+
+          
+            <div class="input-group">
+                <label for="senha">Senha Secreta:</label>
+                <input type="password" id="btnSenha" name="senha" placeholder="Digite sua senha" required>
+            </div>
+
+            <a href="ind.html" style="text-decoration: none; display: block;">
+                <button type="button" id="btnCadastrar" style="width: 100%;">Lançar Teia</button>
+            </a>
+        </form>
+
+    </main>
+
+<script>
+
+const btnCadastrar = document.querySelector('#btnCadastrar');
+        const msgCadastro = document.querySelector('#msgCadastro');
+
+        btnCadastrar.addEventListener('click', async () => {
+            const usuario = document.querySelector('#cadUsuario').value;
+            const email = document.querySelector('#cadEmail').value;
+            const senha = document.querySelector('#cadSenha').value;
+
+            try {
+                const resposta = await fetch('/cadastro', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ usuario, email, senha })
+                });
+
+                const dados = await resposta.json();
+
+                if (!resposta.ok) {
+                    msgCadastro.style.color = 'red';
+                    msgCadastro.innerText = dados.erro;
+                    return;
+                }
+                msgCadastro.style.color = 'green';
+                msgCadastro.innerText = dados.mensagem;
+
+                document.querySelector('#cadUsuario').value = '';
+                document.querySelector('#cadEmail').value = '';
+                document.querySelector('#cadSenha').value = '';
+
+            } catch (erro) {
+                msgCadastro.style.color = 'red';
+                msgCadastro.innerText = 'Erro ao conectar com o servidor!';
+            }
+        });
+
+
+
+        </script>
+
+
+
+
+
+
+
+
+
+</script>
+    
+    
+
+
+
+
+    
+</body>
+</html>
+
